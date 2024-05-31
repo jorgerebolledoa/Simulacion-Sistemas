@@ -127,54 +127,41 @@ export function roundRobin(processList, timeQuantum) {
 
   while (processList.length > 0 || queue.length > 0) {
     addToQueue();
-    while (queue.length === 0) {
+    if (queue.length === 0) {
       time++;
       addToQueue();
+      continue;
     }
-    selectProcessForRR();
+
+    let process = queue.shift();
+    if (process.burstTime <= timeQuantum) {
+      time += process.burstTime;
+      process.completedTime = time;
+      process.turnAroundTime = process.completedTime - process.arrivalTime;
+      process.waitingTime = process.turnAroundTime - process.burstTime;
+      completedList.push(process);
+    } else {
+      time += timeQuantum;
+      process.burstTime -= timeQuantum;
+      addToQueue();  // Ensure that the current process is checked for arrival time of new processes
+      queue.push(process); // Reinsert the process back into the queue with the remaining burst time
+    }
   }
 
   function addToQueue() {
     for (let i = 0; i < processList.length; i++) {
-      if (processList[i].arrivalTime === time) {
+      if (processList[i].arrivalTime <= time) {
         let process = processList.splice(i, 1)[0];
         queue.push(process);
-        i--;
-      }
-    }
-  }
-
-  function selectProcessForRR() {
-    if (queue.length !== 0) {
-      queue.sort((a, b) => a.burstTime - b.burstTime);
-      if (queue[0].burstTime < timeQuantum) {
-        let process = queue.shift();
-        process.completedTime = time + process.burstTime;
-        for (let index = 0; index < process.burstTime; index++) {
-          time++;
-          addToQueue();
-        }
-        completedList.push(process);
-      } else if (queue[0].burstTime === timeQuantum) {
-        let process = queue.shift();
-        process.completedTime = time + timeQuantum;
-        completedList.push(process);
-        for (let index = 0; index < timeQuantum; index++) {
-          time++;
-          addToQueue();
-        }
-      } else if (queue[0].burstTime > timeQuantum) {
-        let process = queue[0];
-        queue[0].burstTime = process.burstTime - timeQuantum;
-        for (let index = 0; index < timeQuantum; index++) {
-          time++;
-          addToQueue();
-        }
+        i--; // Adjust index after removal
       }
     }
   }
 
   return completedList;
 }
+
+
+
 
 export default { firstComeFirstServed, shortestJobFirst, shortestRemainingTimeFirst, roundRobin };
