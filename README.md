@@ -7,15 +7,10 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-# API Rae
+# Simulacion Cpu
 
-Api Que consulta a la web de la rae que devuelve le significado de la palabra a buscar como un json
-
-
-
+App web que simula los algoritmos de planificación de la CPU, First Come First Serve (FCFS), Shortest Job First (SJF), Round Robin (RR), Shortest Remaining Time First (SRTF),
 ## Instalación
-
-Instrucciones paso a paso sobre cómo instalar tu proyecto. Por ejemplo:
 
 1. Clona este repositorio:
    ```bash
