@@ -14,7 +14,7 @@ App web que simula los algoritmos de planificación de la CPU, First Come First 
 
 1. Clona este repositorio:
    ```bash
-   git clone https://github.com/jorgerebolledoa/ApiRae.git
+   git clone https://github.com/jorgerebolledoa/Simulacion-Sistemas.git
    
 2. Instala las dependependecia para la api y levanta el servicio:
      ```bash
