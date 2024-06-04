@@ -7,7 +7,7 @@ import { firstComeFirstServed, shortestJobFirst, shortestRemainingTimeFirst, rou
 
 
 function App() {
-  
+
   const [processList, setProcessList] = useState([]);
   const [results, setResults] = useState([]);
   const [algorithm, setAlgorithm] = useState('optFCFS');
@@ -46,6 +46,7 @@ function App() {
       <ProcessForm setProcessList={setProcessList} />
       <ProcessTable processList={processList} />
       <button onClick={calculateResults}>Calculate</button>
+      <p>Los valores mostrados en la tabla de resultado consideran un tiempo de cambio entre procesos.</p>
       <ResultsTable results={results} />
     </div>
   );

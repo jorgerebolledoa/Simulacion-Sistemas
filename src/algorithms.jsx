@@ -1,3 +1,7 @@
+function TruncaTrunca(x) {
+  return Number.parseFloat(x).toFixed(4);
+}
+
 export function firstComeFirstServed(processList) {
   let time = 0;
   let completedList = [];
@@ -15,9 +19,10 @@ export function firstComeFirstServed(processList) {
       addToQueue();
     }
 
-    process.completedTime = time;
-    process.turnAroundTime = process.completedTime - process.arrivalTime;
-    process.waitingTime = process.turnAroundTime - process.burstTime;
+    let switchingTime = parseFloat(TruncaTrunca(Math. random() * (0.005 - 0.001) + 0.001));
+    process.completedTime = time + switchingTime;
+    process.turnAroundTime = parseFloat(TruncaTrunca(process.completedTime - process.arrivalTime));
+    process.waitingTime = parseFloat(TruncaTrunca(process.turnAroundTime - process.burstTime));
     completedList.push(process);
   }
 
@@ -49,9 +54,11 @@ export function shortestJobFirst(processList) {
       time++;
       addToQueue();
     }
-    process.completedTime = time;
-    process.turnAroundTime = process.completedTime - process.arrivalTime;
-    process.waitingTime = process.turnAroundTime - process.burstTime;
+
+    let switchingTime = parseFloat(TruncaTrunca(Math. random() * (0.005 - 0.001) + 0.001));
+    process.completedTime = time + switchingTime;
+    process.turnAroundTime = parseFloat(TruncaTrunca(process.completedTime - process.arrivalTime));
+    process.waitingTime = parseFloat(TruncaTrunca(process.turnAroundTime - process.burstTime));
     completedList.push(process);
   }
 
@@ -115,7 +122,8 @@ export function shortestRemainingTimeFirst(processList) {
     time++;
     addToQueue();
   }
-
+  let switchingTime = parseFloat(TruncaTrunca(Math. random() * (0.005 - 0.001) + 0.001));
+  process.completedTime = parseFloat(TruncaTrunca(time + switchingTime));
   return completedList;
 }
 
@@ -136,9 +144,10 @@ export function roundRobin(processList, timeQuantum) {
     let process = queue.shift();
     if (process.burstTime <= timeQuantum) {
       time += process.burstTime;
-      process.completedTime = time;
-      process.turnAroundTime = process.completedTime - process.arrivalTime;
-      process.waitingTime = process.turnAroundTime - process.burstTime;
+      let switchingTime = parseFloat(TruncaTrunca(Math. random() * (0.005 - 0.001) + 0.001));
+      process.completedTime = parseFloat(TruncaTrunca(time + switchingTime));
+      process.turnAroundTime = parseFloat(TruncaTrunca(process.completedTime - process.arrivalTime));
+      process.waitingTime = parseFloat(TruncaTrunca(process.turnAroundTime - process.burstTime));
       completedList.push(process);
     } else {
       time += timeQuantum;
